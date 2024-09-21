@@ -26,14 +26,22 @@ yargs.command({
 });
 
 
-// Perintah hapus
+// Update Perintah Hapus Catatan
 yargs.command({
     command: 'hapus',
-    describe: 'hapus catatan',
-    handler: function () {
-        console.log('Catatan berhasil dihapus');
+    describe: 'Hapus sebuah catatan',
+    builder: {
+        judul: {
+            describe: 'Judul catatan',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+        catatan.hapusCatatan(argv.judul);
     }
 });
+
 
 // Perintah untuk menampilkan semua catatan
 yargs.command({

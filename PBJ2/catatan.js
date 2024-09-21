@@ -42,3 +42,24 @@ module.exports = {
     ambilCatatan: ambilCatatan,
     tambahCatatan: tambahCatatan
 };
+
+//Update catatan.js
+const hapusCatatan = function (judul) {
+    const catatan = muatCatatan();
+    const catatanUntukDisimpan = catatan.filter(function (note) {
+        return note.judul !== judul;
+    });
+
+    if (catatan.length > catatanUntukDisimpan.length) {
+        console.log(chalk.green.inverse('Catatan dihapus!'));
+        simpanCatatan(catatanUntukDisimpan);
+    } else {
+        console.log(chalk.red.inverse('Catatan tidak ditemukan!'));
+    }
+}
+
+module.exports = {
+    ambilCatatan: ambilCatatan,
+    tambahCatatan: tambahCatatan,
+    hapusCatatan: hapusCatatan
+};
