@@ -4,10 +4,10 @@ const catatan = require('./catatan.js');
 // Kustomisasi versi yargs
 yargs.version('10.1.0');
 
-// Membuat perintah (command) 'tambah'
+// Update Menambahkan Catatan Baru 
 yargs.command({
     command: 'tambah',
-    describe: 'tambah sebuah catatan baru',
+    describe: 'Tambah sebuah catatan baru',
     builder: {
         judul: {
             describe: 'Judul catatan',
@@ -21,10 +21,10 @@ yargs.command({
         }
     },
     handler: function (argv) {
-        console.log('Judul: ' + argv.judul);
-        console.log('Isi: ' + argv.isi);
+        catatan.tambahCatatan(argv.judul, argv.isi);
     }
 });
+
 
 // Perintah hapus
 yargs.command({
