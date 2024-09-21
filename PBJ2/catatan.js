@@ -58,8 +58,18 @@ const hapusCatatan = function (judul) {
     }
 }
 
+//Update Fungsi ListCatatan
+const listCatatan = function () {
+    const catatan = muatCatatan();
+    console.log(chalk.inverse('Daftar Catatan:'));
+    catatan.forEach((note) => {
+        console.log(note.judul);
+    });
+}
+
 module.exports = {
     ambilCatatan: ambilCatatan,
     tambahCatatan: tambahCatatan,
-    hapusCatatan: hapusCatatan
+    hapusCatatan: hapusCatatan,
+    listCatatan: listCatatan
 };

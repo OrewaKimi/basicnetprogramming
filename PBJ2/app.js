@@ -43,14 +43,15 @@ yargs.command({
 });
 
 
-// Perintah untuk menampilkan semua catatan
+// Update Perintah untuk menampilkan semua catatan
 yargs.command({
     command: 'list',
-    describe: 'Menampilkan semua catatan',
+    describe: 'Tampilkan semua catatan',
     handler: function () {
-        console.log('Menampilkan semua catatan');
+        catatan.listCatatan();
     }
 });
+
 
 // Perintah untuk membaca catatan
 yargs.command({
