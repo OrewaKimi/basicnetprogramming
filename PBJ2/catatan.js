@@ -67,9 +67,27 @@ const listCatatan = function () {
     });
 }
 
+// Update BacaCatatan
+const bacaCatatan = function (judul) {
+    const catatan = muatCatatan()
+    console.log(catatan);  // Tambahkan ini untuk memastikan data berhasil di-load
+    const catatanDitemukan = catatan.find(function (note) {
+        return note.judul === judul
+    })
+
+    if (catatanDitemukan) {
+        console.log(chalk.green.inverse('Catatan ditemukan!'))
+        console.log('Judul: ' + catatanDitemukan.judul)
+        console.log('Isi: ' + catatanDitemukan.isi)
+    } else {
+        console.log(chalk.red.inverse('Catatan tidak ditemukan!'))
+    }
+}
+
 module.exports = {
     ambilCatatan: ambilCatatan,
     tambahCatatan: tambahCatatan,
     hapusCatatan: hapusCatatan,
-    listCatatan: listCatatan
+    listCatatan: listCatatan,
+    bacaCatatan: bacaCatatan
 };

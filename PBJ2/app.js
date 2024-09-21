@@ -53,19 +53,19 @@ yargs.command({
 });
 
 
-// Perintah untuk membaca catatan
+// Update Perintah untuk membaca catatan
 yargs.command({
-    command: 'baca',
-    describe: 'Membaca sebuah catatan',
+    command: 'read',
+    describe: 'Baca sebuah catatan',
     builder: {
         judul: {
-            describe: 'Judul catatan yang ingin dibaca',
+            describe: 'Judul catatan',
             demandOption: true,
             type: 'string'
         }
     },
     handler: function (argv) {
-        console.log('Membaca catatan dengan judul: ' + argv.judul);
+        catatan.bacaCatatan(argv.judul);
     }
 });
 
