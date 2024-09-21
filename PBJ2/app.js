@@ -1,14 +1,14 @@
-const fs = require('fs') 
-fs.writeFileSync('catatan.txt', 'Nama Saya Kimi Maulana') 
-//fs.appendFileSync('catatan.txt', ' Saya tinggal di Painan') 
+const ambilCatatan = require('./catatan.js');  
+const command = process.argv[2];  // Mengambil argumen ketiga dari command line
 
-const validator = require('validator') 
-const ambilCatatan = require('./catatan.js') 
-const pesan = ambilCatatan() 
-console.log(pesan) 
-console.log(validator.isURL('https://Kimi Maulana.com')) 
+console.log(process.argv);
 
-const chalk = require('chalk');
-
-// Mencetak teks dengan warna merah
-console.log(chalk.red('print warna merah sukses'));
+if (command === 'tambah') {
+    console.log('Tambah Catatan');
+    const pesan = ambilCatatan(); 
+    console.log(pesan);  
+} else if (command === 'hapus') {
+    console.log('Hapus Catatan');
+} else {
+    console.log('Perintah tidak dikenali.');
+}
