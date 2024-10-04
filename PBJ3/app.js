@@ -1,11 +1,18 @@
-const request = require('postman-request') 
-const url = 'http://api.weatherstack.com/current?access_key=9171b5925ca219298c4874b016ae6a6b&query=-0.8969206647459452,100.35076508271707';
+const request = require('request');
+const chalk = require('chalk');  
 
-request({ url: url, json: true }, (error, response) => {
-    console.log(response)
-    const data = response.body;
-    console.log('Informasi Cuaca:');
-    console.log('Suhu saat ini: ' + data.current.temperature + '°C');
-    console.log('Deskripsi cuaca: ' + data.current.weather_descriptions[0]);
-    //}
-})
+const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Padang.json?access_token=pk.eyJ1Ijoia2ltaS1tYXVsYW5hLTE3IiwiYSI6ImNtMXRnZ3F5dTAyNXMycG9uODNhMTg3NjcifQ.0A75Rwj7ud_pc0BR4phhbA&limit=1';
+
+request({ url: geocodeURL, json: true }, (error, response) => {
+  if (error) {
+    console.log(chalk.red('Unable to connect to Mapbox API.'));
+  } else if (response.body.features.length === 0) {
+    console.log(chalk.yellow('No matching location found.'));
+  } else {
+    const latitude = response.body.features[0].center[1];
+    const longitude = response.body.features[0].center[0];
+    
+    console.log(chalk.green(`Latitude: ${latitude}`));
+    console.log(chalk.green(`Longitude: ${longitude}`));
+  }
+});
