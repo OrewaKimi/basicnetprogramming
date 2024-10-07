@@ -4,8 +4,8 @@ const hbs = require('hbs');
 
 const app = express();
 
-// Mengatur direktori views secara kustom
-const direktoriViews = path.join(__dirname, '../templates');
+// Mengatur direktori views dan partials
+const direktoriViews = path.join(__dirname, '../templates/views');
 const direktoriPartials = path.join(__dirname, '../templates/partials');
 
 // Setup view engine hbs
