@@ -1,23 +1,51 @@
 const express = require('express');
 const path = require('path');
+const hbs = require('hbs');
 
 const app = express();
 
-// Mengatur direktori public untuk file statis
-const direktoriPublic = path.join(__dirname, '../public');
-app.use(express.static(direktoriPublic));
+// Mengatur direktori views secara kustom
+const direktoriViews = path.join(__dirname, '../templates');
+const direktoriPartials = path.join(__dirname, '../templates/partials');
 
-// Halaman 'tentang'
-app.get('/tentang', (req, res) => {
-    res.send({
-        nama: 'Kimi Maulana Najna',
-        pekerjaan: 'Mahasiswa'
+// Setup view engine hbs
+app.set('view engine', 'hbs');
+app.set('views', direktoriViews);
+hbs.registerPartials(direktoriPartials);
+
+// Menyajikan file statis
+app.use(express.static(path.join(__dirname, '../public'))); // Menambahkan middleware untuk file statis
+
+// Halaman utama
+app.get('', (req, res) => {
+    res.render('index', {
+        judul: 'Aplikasi Cek Cuaca',
+        nama: 'Kimi Maulana Najna' 
     });
 });
 
-// Halaman bantuan/FAQ (Frequently Asked Questions)
+// Halaman /index
+app.get('/index', (req, res) => {
+    res.render('index', {
+        judul: 'Aplikasi Cek Cuaca',
+        nama: 'Kimi Maulana Najna' 
+    });
+});
+
+// Halaman 'tentang'
+app.get('/tentang', (req, res) => {
+    res.render('tentang', {
+        judul: 'Tentang Aplikasi',
+        nama: 'Kimi Maulana Najna' 
+    });
+});
+
+// Halaman bantuan/FAQ
 app.get('/bantuan', (req, res) => {
-    res.send('<h1>Ini halaman bantuan</h1>');
+    res.render('bantuan', {
+        teksBantuan: 'Silakan hubungi kami untuk bantuan lebih lanjut.',
+        nama: 'Kimi Maulana Najna'
+    });
 });
 
 // Halaman infoCuaca
