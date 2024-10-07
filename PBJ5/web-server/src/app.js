@@ -56,6 +56,15 @@ app.get('/infoCuaca', (req, res) => {
     });
 });
 
+// Route wildcard untuk menangani error 404
+app.get('*', (req, res) => {
+    res.render('404', {
+        pesanKesalahan: 'Halaman yang Anda cari tidak ditemukan.',
+        nama: 'Kimi Maulana Najna' // Tambahkan ini
+    });
+});
+
+
 // Menjalankan server pada port 4000
 app.listen(4000, () => {
     console.log('Server berjalan pada port 4000.');
