@@ -5,9 +5,11 @@ module.exports = (app) => {
 
     app.route('/biodata')
         .get(userController.showAllBiodata)
-        .post(userController.addNewBiodata);
+        .post(userController.addNewBiodata)
+        .delete(userController.deleteuser);
 
     app.route('/biodata/:id')
         .get(userController.showBiodataById)
-        .put(userController.updateBiodataById);
+        .put(userController.updateBiodataById)
+        .delete(userController.deleteuser);
 };

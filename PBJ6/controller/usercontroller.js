@@ -31,15 +31,17 @@ exports.showBiodataById = function (req, res) {
 
 // Menambahkan biodata baru
 exports.addNewBiodata = function (req, res) {
+    console.log(req.body);  // Log untuk debugging
+
+    if (!req.body.name || !req.body.email || !req.body.username || !req.body.password) {
+        return res.status(400).send({ error: 'Semua field harus diisi' });
+    }
+
     let newBiodata = {
-        nama: req.body.nama,
-        tanggal_lahir: req.body.tanggal_lahir,
-        jenis_kelamin: req.body.jenis_kelamin,
-        alamat: req.body.alamat,
-        no_telepon: req.body.no_telepon,
+        name: req.body.name,
         email: req.body.email,
-        pekerjaan: req.body.pekerjaan,
-        status_perkawinan: req.body.status_perkawinan
+        username: req.body.username,
+        password: req.body.password
     };
 
     connection.query('INSERT INTO biodata SET ?', newBiodata, function (error, result) {
@@ -55,14 +57,10 @@ exports.addNewBiodata = function (req, res) {
 exports.updateBiodataById = function (req, res) {
     let userId = req.params.id;
     let updatedBiodata = {
-        nama: req.body.nama,
-        tanggal_lahir: req.body.tanggal_lahir,
-        jenis_kelamin: req.body.jenis_kelamin,
-        alamat: req.body.alamat,
-        no_telepon: req.body.no_telepon,
+        name: req.body.name,
         email: req.body.email,
-        pekerjaan: req.body.pekerjaan,
-        status_perkawinan: req.body.status_perkawinan
+        username: req.body.username,
+        password: req.body.password
     };
 
     connection.query('UPDATE biodata SET ? WHERE id = ?', [updatedBiodata, userId], function (error, result) {
@@ -76,4 +74,19 @@ exports.updateBiodataById = function (req, res) {
             res.status(404).send({ message: 'Biodata not found' });
         }
     });
+};
+
+exports.deleteuser = function (req, res) {
+    let userId = req.params.id;  // Ambil id dari parameter URL
+    connection.query('DELETE FROM biodata WHERE id = ?', [userId], function (error, result) {
+        if (error) {
+            console.error('Error deleting data:', error);
+            return res.status(500).send({ error: 'Error deleting data' });
+        }
+        if (result.affectedRows > 0) {
+            res.send({ message: 'Biodata deleted successfully' });
+        } else {
+            res.status(404).send({ message: 'Biodata not found' });
+        }
+    });
 };
